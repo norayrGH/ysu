@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -25,13 +24,19 @@ import java.util.UUID;
 
 public class DekanControler {
 
-
     @Autowired
     DekanInteface dekanInteface;
     @Autowired
     PictuareInterface pictuareInterface;
 
 
+    @RequestMapping("/update")
+    public void update(@RequestBody EditDekan editDekan){
+       Dekan dekan=  dekanInteface.findOne(editDekan.getId());
+       dekan.setStandart(editDekan.getDekan().getStandart());
+       dekan.setFacultat(editDekan.getDekan().getFacultat());
+       dekanInteface.save(dekan);
+    }
     @RequestMapping(value = "/findall")
     @ResponseBody
     public List findAll() {

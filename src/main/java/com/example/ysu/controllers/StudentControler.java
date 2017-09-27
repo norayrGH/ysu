@@ -16,11 +16,8 @@ import java.util.List;
 
 public class StudentControler implements Config {
 
-
     @Autowired
     StudentInterface studentInterface;
-
-
 
     @RequestMapping("/findall")
     @Override

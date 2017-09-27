@@ -19,8 +19,6 @@ public class StertController {
     @RequestMapping("/")
     public String return_index(){
 
-        String asd = "asd";
-
         return "/index.html";
     }
 
