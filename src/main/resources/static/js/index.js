@@ -219,12 +219,10 @@
     });
         $("#TeacherEdit").on('click',function(){
         var teacherId= $("#anyId").val();
-        var newFavorite=[];
+        var newFavorite=["general","mayor"];
         console.log(teacherId);
 
-        $.each($("input[name='facultat']:checked"), function(){
-            newFavorite.push($(this).val());
-        });
+
 
         var standart={
 
