@@ -171,7 +171,7 @@
 
     teacherDiv.appendTo($("body"));
     $("<button>").attr("id","TeacherInsert").text("TeacherInsert").appendTo ($("body"));
-    $("<button>").attr("id","TeacherEdit").text("TeacherEdit").appendTo($("body"));
+    $("<button>").attr("id","TeacherUpdate").text("TeacherUpdate").appendTo($("body"));
     $("<button>").attr("id","TeacherFindAll").text("TeacherFindAll").appendTo($("body"));
 
 
@@ -206,7 +206,7 @@
 
             method : "POST",
             contentType : "application/json",
-            url : "teacher/insert",
+            url : " teacher/insert",
             dataType: 'json',
             data :JSON.stringify(NewTeacher) ,
             success: function(data){
@@ -217,7 +217,7 @@
 
 
     });
-        $("#TeacherEdit").on('click',function(){
+        $("#TeacherUpdate").on('click',function(){
         var teacherId= $("#anyId").val();
         var newFavorite=[];
         console.log(teacherId);
@@ -244,7 +244,7 @@
 
                 method : "POST",
                 contentType : "application/json",
-                url : "teacher/edit",
+                url : "teacher/update",
                 dataType: 'json',
                 data :JSON.stringify(NewTeacher) ,
                 success: function(data){

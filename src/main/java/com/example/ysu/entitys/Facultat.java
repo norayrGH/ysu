@@ -8,7 +8,6 @@ public class Facultat {
     @Column(name = "facultat_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
 
 
