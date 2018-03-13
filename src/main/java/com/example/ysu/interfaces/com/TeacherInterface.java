@@ -15,6 +15,19 @@ import java.util.List;
 public interface TeacherInterface extends CrudRepository<Teacher,Long> {
     @Modifying
     @Transactional
-@Query(value="update teacher_tbl t JOIN facultat f SET t.fname=:fname , t.lname=:lname,t.addres=:addres,t.phone=:phone,t.email=:email,f.name=:facList WHERE t.teacher_id=:id", nativeQuery = true)
-    void update(@Param("id") long id,@Param("facList") List<String> facultates, @Param("addres")String addres,@Param("email") String email, @Param("phone")String phone,@Param("fname") String fname, @Param("lname")String lname);
+@Query(value="update teacher_tbl t JOIN facultat f SET t.fname=:fname" +
+        " , t.lname=:lname,t.addres=:addres" +
+        ",t.phone=:phone,t.email=:email" +
+        ",f.name=:facList " +
+        "WHERE t.teacher_id=:id", nativeQuery = true)
+    void update(@Param("id") long id,
+                @Param("facList") List<String> facultates,
+                @Param("addres")String addres,
+                @Param("email") String email,
+                @Param("phone")String phone,
+                @Param("fname") String fname,
+                @Param("lname")String lname);
+
+    @Query(value = " Select fac_id from techer_join_fac  " ,nativeQuery = true)
+    public  List<Long> findJoin();
 }

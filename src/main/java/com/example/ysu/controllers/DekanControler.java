@@ -1,5 +1,4 @@
 package com.example.ysu.controllers;
-
 import com.example.ysu.entitys.Dekan;
 import com.example.ysu.entitys.Pictuare;
 import com.example.ysu.interfaces.com.DekanInteface;

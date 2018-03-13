@@ -4,7 +4,6 @@ import com.example.ysu.entitys.Facultat;
 import com.example.ysu.entitys.Standart;
 import com.example.ysu.entitys.Teacher;
 import com.example.ysu.interfaces.com.Config;
-import com.example.ysu.interfaces.com.FacultatInterfae;
 import com.example.ysu.interfaces.com.TeacherInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +18,10 @@ import java.util.List;
 public class TeacherControler  {
 
     @Autowired
-    FacultatInterfae facultatInterfae;
-    @Autowired
     TeacherInterface teacherInterface;
+
+    @Autowired
+    FacultatInterfae facultatInterfae;
 
 
     public static  class NewTeacher{
@@ -58,25 +58,28 @@ public class TeacherControler  {
         }
     }
 
-    @RequestMapping(value = "/update" , method = RequestMethod.POST)
+    @RequestMapping(value = "/edit" , method = RequestMethod.POST)
     public @ResponseBody void update(@RequestBody NewTeacher newTeacher){
-        Teacher teacher=  teacherInterface.findOne( newTeacher.id);
-        teacher.setStandart(newTeacher.getStandart());
-        List<Facultat> facultatList= (List<Facultat>) facultatInterfae.findAll();
-        for (int i=0;i<facultatList.size();i++){
-            if (newTeacher.getId()==facultatList.get(i).getId())
-            facultatList.get(i).setName(newTeacher.getFacultates().get(i));
-        }
 
-        teacher.setFacultatList(facultatList);
+       List<Long> longList= teacherInterface.findJoin();
+
+       Teacher teacher=teacherInterface.findOne(newTeacher.getId());
+       teacher.setStandart(newTeacher.getStandart());
+       List<Facultat> facultatList= (List<Facultat>) facultatInterfae.findAll();
+
+       for (int i=0;i<facultatList.size();i++){
+           for (int k=0;k<longList.size();k++){
+               if (facultatList.get(i).getId()==longList.get(k)){
+                   facultatList.get(i).setName(newTeacher.getFacultates().get(k));
+                   break;
+               }
+           }
+       }
+       teacher.setFacultatList(facultatList);
 
         teacherInterface.save(teacher);
-
-
-        }
-
-
-
+        System.out.println(teacherInterface.findJoin());
+    }
 
     @RequestMapping(value = "/insert" , method = RequestMethod.POST)
     public @ResponseBody void insert(@RequestBody NewTeacher newTeacher){
